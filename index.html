@@ -4,73 +4,42 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10130f">
-  <meta name="description" content="Create cinematic videos from your photos with ssalimuto. Move and animate the image as a layer while keeping the original faces untouched.">
-  <title>ssalimuto — Movie studio</title>
+  <meta name="description" content="Create cinematic videos from your photos with ssalimuto Movie Creator. Your original faces stay untouched.">
+  <meta property="og:title" content="ssalimuto Movie Creator">
+  <meta property="og:description" content="Turn your photos into cinematic stories. Free, simple, and private in your browser.">
+  <meta property="og:image" content="https://ssalimuto.github.io/ssalimuto/assets/ssalimuto-logo.svg">
+  <title>ssalimuto Movie Creator</title>
+  <link rel="icon" type="image/svg+xml" href="assets/ssalimuto-logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="protection.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#" aria-label="ssalimuto home"><span class="brand-mark">s<span>.</span></span><span>ssalimuto</span></a>
+    <a class="brand" href="#" aria-label="ssalimuto Movie Creator home"><img src="assets/ssalimuto-logo.svg" alt="ssalimuto Movie Creator" class="brand-logo"></a>
     <div class="topbar-center"><span class="live-dot"></span> YOUR CREATIVE STUDIO <span class="topbar-divider">/</span> UGANDA</div>
     <button class="export-button" id="exportBtn" disabled><span>Export movie</span><span aria-hidden="true">↗</span></button>
   </header>
-
   <main class="workspace">
     <aside class="sidebar">
       <div class="project-label">CURRENT PROJECT</div>
       <div class="project-name"><span class="project-icon">▶</span><span>Untitled story</span><button aria-label="Edit project name" class="more-button">···</button></div>
       <div class="section-heading"><span>YOUR MEDIA</span><span id="mediaCount">0 FILES</span></div>
-      <label class="upload-card" for="photoInput" id="uploadCard">
-        <span class="upload-icon">＋</span><strong>Add a photo</strong><small>Choose an image from your device</small>
-        <span class="upload-hint">JPG, PNG, WEBP · stored only in your browser</span>
-      </label>
+      <label class="upload-card" for="photoInput" id="uploadCard"><span class="upload-icon">＋</span><strong>Add a photo</strong><small>Choose an image from your device</small><span class="upload-hint">JPG, PNG, WEBP · stored only in your browser</span></label>
       <input id="photoInput" type="file" accept="image/*" hidden>
       <div id="mediaItem" class="media-item hidden"><div class="media-thumb" id="mediaThumb"></div><div class="media-info"><strong id="mediaName">Photo</strong><small>Image · Original preserved</small></div><button id="removePhoto" class="remove-button" aria-label="Remove photo">×</button></div>
       <div class="sidebar-note"><span class="shield">◈</span><p><strong>Your photo stays yours.</strong><br>It is processed locally and never uploaded to a server.</p></div>
-      <div class="sidebar-bottom"><span class="uganda-flag"><i></i><i></i><i></i></span><span>Made for stories everywhere.</span></div>
+      <div class="sidebar-bottom"><span class="uganda-flag" aria-hidden="true"><i></i><i></i><i></i></span><span>© 2026 ssalimuto · All rights reserved</span></div>
     </aside>
-
     <section class="editor">
       <div class="editor-toolbar"><div class="breadcrumb">My projects <span>/</span> <strong>Untitled story</strong></div><div class="aspect-control"><span>FORMAT</span><button id="formatBtn">16:9 <span>⌄</span></button></div></div>
-      <div class="stage-area">
-        <div class="stage-wrap" id="stageWrap">
-          <canvas id="stage" width="960" height="540" aria-label="Movie preview"></canvas>
-          <div class="stage-empty" id="emptyState"><div class="empty-symbol">✳</div><strong>Your next story starts here</strong><span>Add a photo to create your first scene.</span><label for="photoInput" class="empty-upload">＋ Add a photo</label></div>
-          <div class="stage-badge"><span class="live-dot"></span> PREVIEW</div>
-        </div>
-        <div class="stage-caption"><span>SCENE 01 <span class="caption-muted">·</span> <span id="sceneLabel">Waiting for media</span></span><span>HD <span class="caption-muted">·</span> 30 FPS</span></div>
-      </div>
+      <div class="stage-area"><div class="stage-wrap" id="stageWrap"><canvas id="stage" width="960" height="540" aria-label="Movie preview"></canvas><div class="stage-empty" id="emptyState"><div class="empty-symbol">✳</div><strong>Your next story starts here</strong><span>Add a photo to create your first scene.</span><label for="photoInput" class="empty-upload">＋ Add a photo</label></div><div class="stage-badge"><span class="live-dot"></span> PREVIEW</div></div><div class="stage-caption"><span>SCENE 01 <span class="caption-muted">·</span> <span id="sceneLabel">Waiting for media</span></span><span>HD <span class="caption-muted">·</span> 30 FPS</span></div></div>
       <div class="transport"><button id="playBtn" class="play-button" aria-label="Play preview" disabled>▶</button><span id="timeReadout" class="time-readout">00:00 <span>/ 00:06</span></span><div class="scrub-track" id="scrubTrack" role="slider" aria-label="Preview position" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0" tabindex="0"><div class="scrub-fill" id="scrubFill"></div><div class="scrub-knob" id="scrubKnob"></div></div><span class="duration-label">00:06</span><button class="sound-button" aria-label="Preview is muted">◖</button></div>
-      <div class="timeline">
-        <div class="timeline-head"><div><strong>Timeline</strong><span>Arrange your scene</span></div><button id="addSceneBtn" class="add-scene" disabled>＋ Add scene</button></div>
-        <div class="ruler"><span>00:00</span><span>00:02</span><span>00:04</span><span>00:06</span></div>
-        <div class="track-row"><span class="track-label">MEDIA</span><div class="track-lane"><div id="clip" class="clip"><div class="clip-thumb" id="clipThumb"></div><span id="clipTitle">Your photo</span><span class="clip-duration">6s</span></div></div></div>
-        <div class="track-row text-track"><span class="track-label">TEXT</span><div class="track-lane"><div id="textClip" class="text-clip hidden">✦ &nbsp; Title overlay</div><span id="textTrackHint" class="track-hint">Add a title in the controls →</span></div></div>
-      </div>
+      <div class="timeline"><div class="timeline-head"><div><strong>Timeline</strong><span>Arrange your scene</span></div><button id="addSceneBtn" class="add-scene" disabled>＋ Add scene</button></div><div class="ruler"><span>00:00</span><span>00:02</span><span>00:04</span><span>00:06</span></div><div class="track-row"><span class="track-label">MEDIA</span><div class="track-lane"><div id="clip" class="clip"><div class="clip-thumb" id="clipThumb"></div><span id="clipTitle">Your photo</span><span class="clip-duration">6s</span></div></div></div><div class="track-row text-track"><span class="track-label">TEXT</span><div class="track-lane"><div id="textClip" class="text-clip hidden">✦ &nbsp; Title overlay</div><span id="textTrackHint" class="track-hint">Add a title in the controls →</span></div></div></div>
     </section>
-
-    <aside class="inspector">
-      <div class="inspector-tabs"><button class="tab active">Scene</button><button class="tab" id="textTab">Text</button></div>
-      <div class="inspector-content">
-        <div class="inspector-title"><span class="inspector-icon">✧</span><div><strong>Scene motion</strong><small>Move your photo, keep faces intact.</small></div></div>
-        <div class="face-notice"><span>◉</span><p><strong>Face-preserving by design</strong><br>Motion moves the whole original photo as a layer. No AI face edits or identity changes.</p></div>
-        <label class="field-label" for="motionSelect">MOTION STYLE</label>
-        <select id="motionSelect" class="select-control" disabled><option value="still">Still frame</option><option value="drift">Gentle camera drift</option><option value="zoom">Slow cinematic zoom</option><option value="pan">Slow pan right</option></select>
-        <div class="control-row"><label class="field-label" for="zoomRange">PHOTO SCALE</label><span id="zoomValue">100%</span></div>
-        <input id="zoomRange" class="range-control" type="range" min="70" max="150" value="100" disabled>
-        <div class="control-row position-heading"><span class="field-label">PHOTO POSITION</span><span class="control-hint">Drag photo in preview</span></div>
-        <div class="position-grid"><button id="leftBtn" aria-label="Move photo left" disabled>←</button><button id="upBtn" aria-label="Move photo up" disabled>↑</button><button id="downBtn" aria-label="Move photo down" disabled>↓</button><button id="rightBtn" aria-label="Move photo right" disabled>→</button><button id="centerBtn" class="center-control" disabled>Center photo</button></div>
-        <div class="inspector-divider"></div>
-        <div class="inspector-title title-inspector"><span class="inspector-icon text-icon">T</span><div><strong>Title card</strong><small>Add a simple title to your scene.</small></div></div>
-        <label class="field-label" for="titleInput">YOUR TITLE</label>
-        <input id="titleInput" class="text-control" type="text" placeholder="e.g. Kampala, at golden hour" maxlength="60" disabled>
-        <div class="control-row title-style-row"><label class="field-label" for="titleColor">TITLE COLOR</label><input id="titleColor" type="color" value="#ffffff" disabled></div>
-        <div class="privacy-foot"><span>⌑</span> Original image pixels are never AI-regenerated.</div>
-      </div>
-    </aside>
+    <aside class="inspector"><div class="inspector-tabs"><button class="tab active">Scene</button><button class="tab" id="textTab">Text</button></div><div class="inspector-content"><div class="inspector-title"><span class="inspector-icon">✧</span><div><strong>Scene motion</strong><small>Move your photo, keep faces intact.</small></div></div><div class="face-notice"><span>◉</span><p><strong>Face-preserving by design</strong><br>Motion moves the whole original photo as a layer. No AI face edits or identity changes.</p></div><label class="field-label" for="motionSelect">MOTION STYLE</label><select id="motionSelect" class="select-control" disabled><option value="still">Still frame</option><option value="drift">Gentle camera drift</option><option value="zoom">Slow cinematic zoom</option><option value="pan">Slow pan right</option></select><div class="control-row"><label class="field-label" for="zoomRange">PHOTO SCALE</label><span id="zoomValue">100%</span></div><input id="zoomRange" class="range-control" type="range" min="70" max="150" value="100" disabled><div class="control-row position-heading"><span class="field-label">PHOTO POSITION</span><span class="control-hint">Drag photo in preview</span></div><div class="position-grid"><button id="leftBtn" aria-label="Move photo left" disabled>←</button><button id="upBtn" aria-label="Move photo up" disabled>↑</button><button id="downBtn" aria-label="Move photo down" disabled>↓</button><button id="rightBtn" aria-label="Move photo right" disabled>→</button><button id="centerBtn" class="center-control" disabled>Center photo</button></div><div class="inspector-divider"></div><div class="inspector-title title-inspector"><span class="inspector-icon text-icon">T</span><div><strong>Title card</strong><small>Add a simple title to your scene.</small></div></div><label class="field-label" for="titleInput">YOUR TITLE</label><input id="titleInput" class="text-control" type="text" placeholder="e.g. Kampala, at golden hour" maxlength="60" disabled><div class="control-row title-style-row"><label class="field-label" for="titleColor">TITLE COLOR</label><input id="titleColor" type="color" value="#ffffff" disabled></div><div class="privacy-foot"><span>⌑</span> Original image pixels are never AI-regenerated.</div></div></aside>
   </main>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script src="app.js"></script>

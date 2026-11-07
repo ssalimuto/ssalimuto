@@ -1,0 +1,4 @@
+/* ssalimuto Movie Creator logo and export-branding styles */
+.brand{display:flex;align-items:center;text-decoration:none;min-width:0}
+.brand-logo{display:block;width:208px;height:42px;object-fit:contain;object-position:left center}
+@media(max-width:560px){.brand-logo{width:172px;height:36px}}
